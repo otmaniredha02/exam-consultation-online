@@ -10,6 +10,7 @@ import {
   NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu"
 import ParticlesBackground from './components/backgrounds/ParticlesBackground';
+import Link from 'next/link';
 
 export default function Home() {  
   return (
@@ -25,7 +26,7 @@ export default function Home() {
               <NavigationMenuLink   style={{padding:'20px'}} render={<a href="/about">about</a>} />
             </NavigationMenuItem>
             <NavigationMenuItem>
-              <Button  style={{padding:'20px'}} variant="default">Login</Button>
+              <Button  style={{padding:'20px'}} variant="default"><Link href={"/login"}>Login</Link></Button>
             </NavigationMenuItem>
           </NavigationMenuList>
       </NavigationMenu>
