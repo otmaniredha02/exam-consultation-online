@@ -19,9 +19,9 @@ export default function Login() {
             <FieldLabel htmlFor="email">Email</FieldLabel>
             <Input placeholder="email" type="email"/>
             <FieldLabel htmlFor="password">Password</FieldLabel>
-            <div style={{display:"flex"}}>
+            <div className="logincardpassinput" style={{display:"flex"}}>
                 <Input style={{outline: 'none'}} placeholder="password" type={showpass ? "text" : "password"}/>
-                <Button style={{backgroundColor:'white'}} onClick={() => setShowpass((prev) => !prev)}>👁</Button>
+                <Button style={{margin:'0.2rem',width : '1rem', height : '1rem'}} onClick={() => setShowpass((prev) => !prev)}>👁</Button>
             </div>
             <Button>Login</Button>
         </Card>
