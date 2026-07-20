@@ -35,6 +35,10 @@
     opacity: 0.9;
 }
 
+
+.logout {
+    color: red;
+}
 .notification-button {
     width: 42px;
     height: 42px;

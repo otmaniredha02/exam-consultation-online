@@ -6,6 +6,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { BellIcon, ChevronDown, CircleUserRound } from "lucide-react";
 import "./studentDashboard.css";
+import { StudentNotificationItem } from "../components/backgrounds/student-notification-menu/student-notification-menu";
 
 export default function StudentDashboard() {
   return (
@@ -21,13 +22,25 @@ export default function StudentDashboard() {
           <DropdownMenuContent align="start">
             <DropdownMenuItem>Profile</DropdownMenuItem>
             <DropdownMenuItem>Settings</DropdownMenuItem>
-            <DropdownMenuItem>Logout</DropdownMenuItem>
+            <DropdownMenuItem className={"logout"}>Logout</DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
 
-        <button className="notification-button">
-          <BellIcon size={22} />
-        </button>
+        <DropdownMenu>
+          <DropdownMenuTrigger>
+            <button className="notification-button">
+              <BellIcon size={22} />
+            </button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent 
+          style={{width:'40vw',padding:'1rem',display:'flex',flexDirection:'column',gap:'0.5rem'}}
+           align="start">
+              <StudentNotificationItem/>
+              <StudentNotificationItem/>
+              <StudentNotificationItem/>
+
+          </DropdownMenuContent>
+        </DropdownMenu>
       </header>
 
       <main className="dashboard-content">

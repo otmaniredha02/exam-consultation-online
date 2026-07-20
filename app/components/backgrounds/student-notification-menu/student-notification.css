@@ -1,0 +1,31 @@
+.notification-item-container {
+    cursor: pointer;
+    padding: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+}
+
+.notification-header {
+    display: flex;
+    align-items: center;
+    gap: .75rem;
+}
+
+.notification-details {
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+
+    transition:
+        max-height 0.3s ease,
+        opacity 0.3s ease,
+        margin-top 0.3s ease;
+
+    margin-top: 0;
+}
+
+.notification-details.open {
+    max-height: 300px; /* larger than expected content */
+    opacity: 1;
+    margin-top: .75rem;
+}
