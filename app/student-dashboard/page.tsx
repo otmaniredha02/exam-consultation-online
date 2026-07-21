@@ -1,51 +1,41 @@
+"use client";
+
+import { useState } from "react";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { BellIcon, ChevronDown, CircleUserRound } from "lucide-react";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
+import {
+  BellIcon,
+  ChevronDown,
+  CircleUserRound,
+} from "lucide-react";
+import { StudentNotificationItem } from "../components/student-notification-menu/student-notification-item";
 import "./studentDashboard.css";
-import { StudentNotificationItem } from "../components/backgrounds/student-notification-menu/student-notification-menu";
+import { useRouter } from "next/navigation";
+import { ConsultationCard } from "./consultationCard";
 
 export default function StudentDashboard() {
-  return (
-    <div className="dashboard">
-      <header className="dashboard-header">
-        <DropdownMenu>
-          <DropdownMenuTrigger className="profile-button">
-            <CircleUserRound size={42} strokeWidth={1.5} />
-            <span>Otmani Redha</span>
-            <ChevronDown size={18} />
-          </DropdownMenuTrigger>
 
-          <DropdownMenuContent align="start">
-            <DropdownMenuItem>Profile</DropdownMenuItem>
-            <DropdownMenuItem>Settings</DropdownMenuItem>
-            <DropdownMenuItem className={"logout"}>Logout</DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
-
-        <DropdownMenu>
-          <DropdownMenuTrigger>
-            <button className="notification-button">
-              <BellIcon size={22} />
-            </button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent 
-          style={{width:'40vw',padding:'1rem',display:'flex',flexDirection:'column',gap:'0.5rem'}}
-           align="start">
-              <StudentNotificationItem/>
-              <StudentNotificationItem/>
-              <StudentNotificationItem/>
-
-          </DropdownMenuContent>
-        </DropdownMenu>
-      </header>
-
-      <main className="dashboard-content">
-        {/* Dashboard content */}
-      </main>
-    </div>
+   return (
+    <>
+      {/* Dashboard content */}
+     <div style={{display:'flex',gap:'2rem',flexWrap:'wrap',justifyContent:'center'}}>
+       {Array.from({ length : 15}, () => {
+        return <ConsultationCard/>
+      })}
+     </div>
+    </>
   );
 }

@@ -29,3 +29,11 @@
     opacity: 1;
     margin-top: .75rem;
 }
+
+.notification-menu-content {
+    width: min(90vw, 50rem);
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
