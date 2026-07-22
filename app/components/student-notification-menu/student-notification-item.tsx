@@ -1,30 +1,57 @@
 "use client";
 
-import { BellDotIcon } from "lucide-react";
+import { useRef, useState } from "react";
+import {
+  BellDot,
+  ChevronDown,
+} from "lucide-react";
+
 import "./student-notification.css";
-import { useState } from "react";
 
 export function StudentNotificationItem() {
-  const [detailOpen, setDetailOpen] = useState(false);
+  const [open, setOpen] = useState(false);
+
+  const bodyRef = useRef<HTMLDivElement>(null);
 
   return (
-    <div
-      className="notification-item-container"
-      onClick={() => setDetailOpen(!detailOpen)}
-    >
-      <div className="notification-header">
-        <BellDotIcon />
-        <p>Notification 1</p>
-      </div>
+    <div className="notification-item">
+      <button
+        type="button"
+        className="notification-header"
+        aria-expanded={open}
+        onClick={() => setOpen(!open)}
+      >
+        <div className="notification-title">
+          <BellDot size={18} />
+
+          <span>Notification 1</span>
+        </div>
+
+        <ChevronDown
+          size={18}
+          className={`notification-arrow ${
+            open ? "open" : ""
+          }`}
+        />
+      </button>
 
       <div
-        className={`notification-details ${
-          detailOpen ? "open" : ""
-        }`}
+        ref={bodyRef}
+        className="notification-body"
+        style={{
+          maxHeight: open
+            ? `${bodyRef.current?.scrollHeight ?? 0}px`
+            : "0px",
+        }}
       >
-        Lorem ipsum dolor sit amet consectetur adipisicing elit.
-        Dolore doloribus molestias accusantium maxime voluptatum
-        odit ratione.
+        <div className="notification-body-content">
+          <p>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit.
+            Dolore doloribus molestias accusantium maxime voluptatum
+            odit ratione. Lorem ipsum dolor sit amet consectetur
+            adipisicing elit.
+          </p>
+        </div>
       </div>
     </div>
   );

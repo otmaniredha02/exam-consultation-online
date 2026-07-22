@@ -2,12 +2,23 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+
+import {
+  Bell,
+  ChevronDown,
+  CircleUserRound,
+  LogOut,
+  Settings,
+  User,
+} from "lucide-react";
+
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+
 import {
   Dialog,
   DialogContent,
@@ -16,19 +27,36 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
+
 import { Button } from "@/components/ui/button";
-import {
-  BellIcon,
-  ChevronDown,
-  CircleUserRound,
-} from "lucide-react";
 import { StudentNotificationItem } from "@/app/components/student-notification-menu/student-notification-item";
 
 export default function StudentHeader() {
-  const [logoutDialogOpen, setLogoutDialogOpen] = useState(false);
   const router = useRouter();
 
+  const [profileOpen, setProfileOpen] = useState(false);
+  const [notificationOpen, setNotificationOpen] = useState(false);
+  const [logoutDialogOpen, setLogoutDialogOpen] = useState(false);
+
+  function handleProfileOpenChange(open: boolean) {
+    setProfileOpen(open);
+
+    if (open) {
+      setNotificationOpen(false);
+    }
+  }
+
+  function handleNotificationOpenChange(open: boolean) {
+    setNotificationOpen(open);
+
+    if (open) {
+      setProfileOpen(false);
+    }
+  }
+
   function openLogoutDialog() {
+    setProfileOpen(false);
+
     requestAnimationFrame(() => {
       setLogoutDialogOpen(true);
     });
@@ -37,7 +65,8 @@ export default function StudentHeader() {
   function handleLogout() {
     setLogoutDialogOpen(false);
 
-    // TODO: Clear auth/session here
+    // TODO:
+    // clear auth/session
 
     router.push("/login");
   }
@@ -45,44 +74,70 @@ export default function StudentHeader() {
   return (
     <>
       <header className="dashboard-header">
-        {/* Profile */}
-        <DropdownMenu>
+        {/* ===========================
+            Profile
+        =========================== */}
+
+        <DropdownMenu
+          open={profileOpen}
+          onOpenChange={handleProfileOpenChange}
+        >
           <DropdownMenuTrigger className="profile-button">
             <CircleUserRound size={42} strokeWidth={1.5} />
+
             <span>Otmani Redha</span>
-            <ChevronDown size={18} />
+
+            <ChevronDown
+              size={18}
+              className={profileOpen ? "rotate" : ""}
+            />
           </DropdownMenuTrigger>
 
-          <DropdownMenuContent align="start">
+          <DropdownMenuContent
+            align="start"
+            sideOffset={10}
+            className="profile-dropdown-content"
+          >
             <DropdownMenuItem
               onClick={() => router.push("/student/profile")}
             >
+              <User size={18} />
               Profile
             </DropdownMenuItem>
 
             <DropdownMenuItem
               onClick={() => router.push("/student/settings")}
             >
+              <Settings size={18} />
               Settings
             </DropdownMenuItem>
 
-            <DropdownMenuItem onClick={openLogoutDialog}>
+            <DropdownMenuItem
+              className="logout-item"
+              onClick={openLogoutDialog}
+            >
+              <LogOut size={18} />
               Logout
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
 
-        {/* Notifications */}
-        <DropdownMenu>
-          <DropdownMenuTrigger>
-            <button className="notification-button" type="button">
-              <BellIcon size={22} />
-            </button>
+        {/* ===========================
+            Notifications
+        =========================== */}
+
+        <DropdownMenu
+          open={notificationOpen}
+          onOpenChange={handleNotificationOpenChange}
+        >
+          <DropdownMenuTrigger className="notification-button">
+            <Bell size={22} />
           </DropdownMenuTrigger>
 
           <DropdownMenuContent
-            align="start"
-            className="notification-menu-content"
+            align="end"
+            sideOffset={10}
+            className="notification-dropdown-content"
           >
             <StudentNotificationItem />
             <StudentNotificationItem />
@@ -94,7 +149,10 @@ export default function StudentHeader() {
         </DropdownMenu>
       </header>
 
-      {/* Logout Dialog */}
+      {/* ===========================
+          Logout Dialog
+      =========================== */}
+
       <Dialog
         open={logoutDialogOpen}
         onOpenChange={setLogoutDialogOpen}
