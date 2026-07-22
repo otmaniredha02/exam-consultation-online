@@ -1,0 +1,48 @@
+.notification-item {
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.notification-header {
+    width: 100%;
+    padding: 14px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    background: white;
+    border: none;
+
+    cursor: pointer;
+}
+
+.notification-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.notification-body {
+    max-height: 0;
+
+    overflow: hidden;
+
+    transition:
+        max-height .3s ease,
+        padding .3s ease;
+
+    padding: 0 14px;
+}
+
+.notification-body.open {
+    max-height: 200px;
+    padding: 0 14px 14px;
+}
+
+.notification-arrow {
+    transition: transform .25s;
+}
+
+.notification-arrow.open {
+    transform: rotate(180deg);
+}
