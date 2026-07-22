@@ -7,6 +7,7 @@ import {
   CalendarDays,
   GraduationCap,
   Layers3,
+  Timer,
 } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -22,6 +23,11 @@ export function ConsultationCard() {
       <p>
         <CalendarDays size={16} />
         Date: 23/07/26
+      </p>
+
+      <p>
+        <Timer />
+        Duration: 1 h 30 min
       </p>
 
       <p>

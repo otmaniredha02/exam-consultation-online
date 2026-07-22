@@ -7,6 +7,7 @@ import {
   Bell,
   ChevronDown,
   CircleUserRound,
+  Home,
   LogOut,
   Settings,
   User,
@@ -30,6 +31,7 @@ import {
 
 import { Button } from "@/components/ui/button";
 import { StudentNotificationItem } from "@/app/components/student-notification-menu/student-notification-item";
+import Link from "next/link";
 
 export default function StudentHeader() {
   const router = useRouter();
@@ -83,7 +85,9 @@ export default function StudentHeader() {
           onOpenChange={handleProfileOpenChange}
         >
           <DropdownMenuTrigger className="profile-button">
-            <CircleUserRound size={42} strokeWidth={1.5} />
+           <Link href="/student-dashboard"> 
+           
+           <CircleUserRound size={42} strokeWidth={1.5} /></Link>
 
             <span>Otmani Redha</span>
 
@@ -99,19 +103,11 @@ export default function StudentHeader() {
             className="profile-dropdown-content"
           >
             <DropdownMenuItem
-              onClick={() => router.push("/student/profile")}
+              onClick={() => router.push("student-dashboard/profile")}
             >
               <User size={18} />
               Profile
             </DropdownMenuItem>
-
-            <DropdownMenuItem
-              onClick={() => router.push("/student/settings")}
-            >
-              <Settings size={18} />
-              Settings
-            </DropdownMenuItem>
-
             <DropdownMenuItem
               className="logout-item"
               onClick={openLogoutDialog}
@@ -130,7 +126,14 @@ export default function StudentHeader() {
           open={notificationOpen}
           onOpenChange={handleNotificationOpenChange}
         >
-          <DropdownMenuTrigger className="notification-button">
+          <DropdownMenuTrigger 
+          render={
+            <button
+            type="button"
+            className="notification-button"
+        />
+          }
+          className="notification-button">
             <Bell size={22} />
           </DropdownMenuTrigger>
 
