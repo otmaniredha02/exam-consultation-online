@@ -1,3 +1,5 @@
+"use client";
+
 import {
   Avatar,
   AvatarFallback,
@@ -6,6 +8,7 @@ import {
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Mail, Phone, MapPin, GraduationCap, Calendar } from "lucide-react";
+import { pb } from "@/lib/database/pocketdb";
 
 export default function StudentProfile() {
   return (
@@ -21,19 +24,12 @@ export default function StudentProfile() {
               <AvatarFallback>OR</AvatarFallback>
             </Avatar>
 
-            <h1 className="mt-4 text-3xl font-bold">Otmani Redha</h1>
+            <h1 className="mt-4 text-3xl font-bold">{ pb.authStore.record?.username.split("_").join(" ") }</h1>
 
             <p className="text-muted-foreground">
-              Master Student • Computer Science
+              { pb.authStore.record?.level }| { pb.authStore.record?.speciality }
             </p>
 
-            <div className="mt-3 flex flex-wrap justify-center gap-2">
-              <Badge>Networks</Badge>
-              <Badge>Java</Badge>
-              <Badge>Spring Boot</Badge>
-              <Badge>React</Badge>
-              <Badge>Python</Badge>
-            </div>
           </CardHeader>
 
           <CardContent className="grid gap-6 p-8 lg:grid-cols-3">

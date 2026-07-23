@@ -7,9 +7,7 @@ import {
   Bell,
   ChevronDown,
   CircleUserRound,
-  Home,
   LogOut,
-  Settings,
   User,
 } from "lucide-react";
 
@@ -32,6 +30,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { StudentNotificationItem } from "@/app/components/student-notification-menu/student-notification-item";
 import Link from "next/link";
+import { pb } from "@/lib/database/pocketdb";
 
 export default function StudentHeader() {
   const router = useRouter();
@@ -85,11 +84,11 @@ export default function StudentHeader() {
           onOpenChange={handleProfileOpenChange}
         >
           <DropdownMenuTrigger className="profile-button">
-           <Link href="/student-dashboard"> 
+           <Link href="/student"> 
            
            <CircleUserRound size={42} strokeWidth={1.5} /></Link>
 
-            <span>Otmani Redha</span>
+            <span>{pb.authStore.record?.username.split("_").join(" ")}</span>
 
             <ChevronDown
               size={18}
@@ -103,7 +102,7 @@ export default function StudentHeader() {
             className="profile-dropdown-content"
           >
             <DropdownMenuItem
-              onClick={() => router.push("student-dashboard/profile")}
+              onClick={() => router.push("student/profile")}
             >
               <User size={18} />
               Profile
