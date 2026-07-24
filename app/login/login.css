@@ -9,13 +9,13 @@ html {
 
     font-family: Inter, Arial, sans-serif;
 
-    background: linear-gradient(10deg, #fff 35%, #ffff 35%, #2563eb 0%);
+    background: linear-gradient(180deg, #fff 0%, #2460b5 0%, #3868cf 100%);
 }
 
 .logincard {
     width: min(420px, calc(100% - 2rem));
     height: fit-content;
-    padding: 3rem;
+    padding: 4rem  2rem  4rem  2rem;
 
     background: rgba(255, 255, 255, 0.08);
     backdrop-filter: blur(18px);
@@ -56,7 +56,7 @@ html {
 .logincardpassinput {
     width: 100%;
     display: flex;
-    gap: 0.5rem;
+    gap: .5rem;
     background-color: transparent;
     height: 4rem;
 }
@@ -93,8 +93,8 @@ html {
     border: none;
     border-radius: 12px;
 
-    background: linear-gradient(135deg, #38bdf8, #2563eb);
-    color: white;
+    background: #fff;
+    color: black;
 
     font-size: 1rem;
     font-weight: 700;

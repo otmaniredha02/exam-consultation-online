@@ -9,6 +9,7 @@ import { useState } from "react";
 import './login.css';
 import { pb } from '@/lib/database/pocketdb';
 import { useRouter } from "next/navigation";
+import { toast, Toaster } from "@/components/ui/toast";
 
 export default function Login() {
     const [showpass,setShowpass] = useState(false);
@@ -25,7 +26,11 @@ export default function Login() {
         const regxdentemail = /^[a-zA-Z0-9._%+-]+@univ-saida\.dz$/;
 
         if(password.length < 8) {
-            
+            toast.add({
+                description:"password is too short.",
+                type:'warning',
+            });
+            return;
         }
 
         if(regxstudentemail.test(email)) {
@@ -33,28 +38,40 @@ export default function Login() {
             .then((r)=>{
                 // TODO : store details in server
                 console.log("logged in");
+                router.push("/student");
             }).catch((e)=>{
                 // TODO : store detaild logs onerror in server
                 console.log(e);
+                toast.add({
+                    description:e.message,
+                    type:'warning',
+                });
                 return;
             });
-            router.push("/student");
         } else if(regxdentemail.test(email)) {
             let result = await pb.collection("professor").authWithPassword(email,password)
              .then((r)=>{
                 // TODO : store details in server
                 console.log("logged in");
+                router.push("/professor");
             }).catch((e)=>{
                 // TODO : store detaild logs onerror in server
                 console.log(e);
+                toast.add({
+                    description:e.message,
+                    type:'warning',
+                });
                 return;
-            });;
-            router.push("/professor");
+            });
         } else {
-            alert("Invalid email");
+            toast.add({
+                    description:"Invalid Email.",
+                    type:'warning',
+                });
             return;
         }
     }
+
     return (
         <>
         <Card className="logincard">
@@ -64,6 +81,8 @@ export default function Login() {
                 </h1>
                 <FieldLabel htmlFor="email">Email</FieldLabel>
                 <Input placeholder="email" name="email" type="email"/>
+                <br />
+                <br />
                 <FieldLabel htmlFor="password">Password</FieldLabel>
                 <div className="logincardpassinput" style={{display:"flex"}}>
                     <Input name="password" style={{outline: 'none'}} placeholder="password" type={showpass ? "text" : "password"}/>
@@ -71,6 +90,7 @@ export default function Login() {
                 </div>
                 <Button type="submit">Login</Button>
             </form>
+            <Toaster/>
         </Card>
         
         </>
