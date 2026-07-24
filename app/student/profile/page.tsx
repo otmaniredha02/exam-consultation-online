@@ -9,8 +9,18 @@ import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Mail, Phone, MapPin, GraduationCap, Calendar } from "lucide-react";
 import { pb } from "@/lib/database/pocketdb";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 
 export default function StudentProfile() {
+  const router = useRouter();
+      useEffect( ()=>{
+        console.log("auth");
+        console.log(pb.authStore.record);
+        if(pb.authStore.record == null) {
+          router.push("/login");
+        }
+      })
   return (
     <div className="min-h-screen bg-slate-100 py-10">
       <div className="mx-auto max-w-6xl px-6">

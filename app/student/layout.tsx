@@ -5,6 +5,7 @@ export default function StudentLayout({
 }: {
   children: React.ReactNode;
 }) {
+
   return (
     <div className="dashboard">
       <StudentHeader />

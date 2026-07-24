@@ -68,7 +68,7 @@ export default function StudentHeader() {
 
     // TODO:
     // clear auth/session
-
+    pb.authStore.clear();
     router.push("/login");
   }
 
