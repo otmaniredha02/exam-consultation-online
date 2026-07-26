@@ -1,0 +1,207 @@
+html,body {
+  width: 100vw;
+}
+
+/* ==========================================================
+   Dashboard
+========================================================== */
+
+.dashboard {
+    width: 100%;
+    min-height: 100vh;
+    background: #f5f7fb;
+}
+
+.dashboard-content {
+    padding: 2rem;
+}
+
+/* ==========================================================
+   Header
+========================================================== */
+
+.dashboard-header {
+    height: 72px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 0 2rem;
+
+    background: #2563eb;
+
+    position: sticky;
+    top: 0;
+    z-index: 100;
+
+    box-sizing: border-box;
+}
+
+/* ==========================================================
+   Profile Button
+========================================================== */
+
+.profile-button {
+    display: flex;
+    align-items: center;
+    gap: .75rem;
+
+    padding: .4rem .6rem;
+
+    border: none;
+    border-radius: 10px;
+
+    background: transparent;
+    color: white;
+
+    cursor: pointer;
+
+    transition: background .2s;
+}
+
+.profile-button:hover {
+    background: rgba(255,255,255,.12);
+}
+
+.profile-button span {
+    font-size: .95rem;
+    font-weight: 500;
+    white-space: nowrap;
+}
+
+.profile-button svg:last-child {
+    transition: transform .2s;
+}
+
+.profile-button .rotate {
+    transform: rotate(180deg);
+}
+
+/* ==========================================================
+   add Consulation Button
+========================================================== */
+
+.consulation-button {
+    display:flex;
+    gap:1rem;
+    color:white;
+    padding: 0.6rem;
+    cursor: pointer;
+}
+
+.consulation-button:hover {
+    background: rgba(255,255,255,.12);
+}
+
+/* ==========================================================
+   Profile Dropdown
+========================================================== */
+
+.profile-dropdown-content {
+    width: 220px;
+    padding: .35rem;
+}
+
+.profile-dropdown-content [data-slot="dropdown-menu-item"] {
+    gap: .75rem;
+    cursor: pointer;
+}
+
+.logout-item {
+    color: #dc2626;
+}
+
+/* ==========================================================
+   Notifications Dropdown
+========================================================== */
+
+.notification-dropdown-content {
+    width: 360px;
+    max-height: 420px;
+
+    padding: .35rem;
+
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.notification-dropdown-content::-webkit-scrollbar {
+    width: 6px;
+}
+
+.notification-dropdown-content::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 999px;
+}
+
+/* ==========================================================
+   Tablet
+========================================================== */
+
+@media (max-width: 768px) {
+
+    .dashboard-header {
+        padding: 0 1rem;
+    }
+
+    .dashboard-content {
+        padding: 1.25rem;
+    }
+
+    .profile-button span {
+        display: none;
+    }
+
+    .profile-dropdown-content {
+        width: 200px;
+    }
+
+    .notification-dropdown-content {
+        width: min(340px, calc(100vw - 32px));
+    }
+}
+
+/* ==========================================================
+   Phone
+========================================================== */
+
+@media (max-width: 480px) {
+
+    .dashboard-header {
+        height: 64px;
+        padding: 0 .75rem;
+    }
+
+    .dashboard-content {
+        padding: 1rem;
+    }
+
+    .profile-button {
+        gap: .4rem;
+        padding: .25rem;
+    }
+
+    .profile-button svg:first-child {
+        width: 36px;
+        height: 36px;
+    }
+
+    .notification-button {
+        width: 40px;
+        height: 40px;
+    }
+
+    /* Base UI portals the dropdowns to the body,
+       so just control their width. */
+
+    .profile-dropdown-content,
+    .notification-dropdown-content {
+        width: calc(100vw - 24px);
+        max-width: calc(100vw - 24px);
+    }
+
+    .notification-dropdown-content {
+        max-height: 60vh;
+    }
+}

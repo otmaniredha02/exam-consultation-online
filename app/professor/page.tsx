@@ -1,7 +1,7 @@
 export default function Professor() {
     return (
         <>
-        professor
+        professor something else 
         </>
     );
 }
