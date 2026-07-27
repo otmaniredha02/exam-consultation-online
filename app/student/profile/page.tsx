@@ -11,16 +11,22 @@ import { Mail, Phone, MapPin, GraduationCap, Calendar } from "lucide-react";
 import { pb } from "@/lib/database/pocketdb";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
+import { emit } from "process";
 
 export default function StudentProfile() {
   const router = useRouter();
-      useEffect( ()=>{
-        console.log("auth");
-        console.log(pb.authStore.record);
-        if(pb.authStore.record == null) {
-          router.push("/login");
-        }
-      })
+  useEffect( ()=>{
+    console.log("auth");
+    console.log(pb.authStore.record);
+    const REGXSTUDENTEMAIL = /^[a-zA-Z0-9._%+-]+@stu\.univ-saida\.dz$/;
+    const record = pb.authStore.record;
+    const email = record?.email;
+    if(!record || !email ||
+        !REGXSTUDENTEMAIL.test(email)) {
+        router.push("/professor");
+      }
+  }, [router]);
+
   return (
     <div className="min-h-screen bg-slate-100 py-10">
       <div className="mx-auto max-w-6xl px-6">

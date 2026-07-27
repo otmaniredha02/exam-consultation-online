@@ -1,0 +1,11 @@
+.consultation {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    z-index: 100;
+}
+
+.formlabel {
+    display: flex;
+    gap: 1rem;
+}

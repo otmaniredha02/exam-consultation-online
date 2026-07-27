@@ -4,7 +4,6 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 
 import {
-  Bell,
   ChevronDown,
   CircleUserRound,
   LogOut,
@@ -33,29 +32,21 @@ import Link from "next/link";
 import { pb } from "@/lib/database/pocketdb";
 import "./ProfessorDashboard.css";
 import { DialogTrigger } from "@/components/ui/dialog";
+import { NewConsultationDialog } from "../components/newConsultation/newConsultation";
 
 
 export default function ProfessorHeader() {
+  const username = 
+  pb.authStore.record?.username.split("_").join(" ") != undefined ?
+  pb.authStore.record?.username.split("_").join(" ")  :  "user not found!";
+
   const router = useRouter();
 
   const [profileOpen, setProfileOpen] = useState(false);
-  const [notificationOpen, setNotificationOpen] = useState(false);
   const [logoutDialogOpen, setLogoutDialogOpen] = useState(false);
 
   function handleProfileOpenChange(open: boolean) {
     setProfileOpen(open);
-
-    if (open) {
-      setNotificationOpen(false);
-    }
-  }
-
-  function handleNotificationOpenChange(open: boolean) {
-    setNotificationOpen(open);
-
-    if (open) {
-      setProfileOpen(false);
-    }
   }
 
   function openLogoutDialog() {
@@ -91,7 +82,7 @@ export default function ProfessorHeader() {
            
            <CircleUserRound size={42} strokeWidth={1.5} /></Link>
 
-            <span>{pb.authStore.record?.username.split("_").join(" ")}</span>
+            <span>{username}</span>
 
             <ChevronDown
               size={18}
@@ -105,7 +96,7 @@ export default function ProfessorHeader() {
             className="profile-dropdown-content"
           >
             <DropdownMenuItem
-              onClick={() => router.push("student/profile")}
+              onClick={() => router.push("professor/profile")}
             >
               <User size={18} />
               Profile
@@ -130,9 +121,7 @@ export default function ProfessorHeader() {
             <p>add new consultation</p>
           </div>
         </DialogTrigger>
-        <DialogContent>
-          
-        </DialogContent>
+          <NewConsultationDialog/>
        </Dialog>
        
       </header>

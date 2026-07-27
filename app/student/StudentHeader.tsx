@@ -33,6 +33,10 @@ import Link from "next/link";
 import { pb } from "@/lib/database/pocketdb";
 
 export default function StudentHeader() {
+  const username = 
+  pb.authStore.record?.username.split("_").join(" ") != undefined ?
+  pb.authStore.record?.username.split("_").join(" ")  :  "user not found!";
+
   const router = useRouter();
 
   const [profileOpen, setProfileOpen] = useState(false);
@@ -88,7 +92,7 @@ export default function StudentHeader() {
            
            <CircleUserRound size={42} strokeWidth={1.5} /></Link>
 
-            <span>{pb.authStore.record?.username.split("_").join(" ")}</span>
+            <span>{username}</span>
 
             <ChevronDown
               size={18}

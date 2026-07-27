@@ -1,30 +1,36 @@
 "use client";
 
-import "./studentDashboard.css";
+import "./StudentDashboard.css";
 import { ConsultationCard } from "./consultationCard";
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { pb } from "@/lib/database/pocketdb";
 
+const STUDENT_EMAIL_REGEX = /^[a-zA-Z0-9._%+-]+@stu\.univ-saida\.dz$/;
+
 export default function StudentDashboard() {
-   const router = useRouter();
-    useEffect( ()=>{
-      console.log("auth");
-      console.log(pb.authStore.record);
-      if(pb.authStore.record == null) {
-        router.push("/login");
-      }
-    })
-    
-   return (
+  const router = useRouter();
+
+  useEffect(()=>{
+        const record = pb.authStore.record;
+        const email = record?.email;
+
+        if(!record || !email) {
+            router.push("/login")
+        } else if(!STUDENT_EMAIL_REGEX.test(email))  {
+            router.push("/professor");
+        }
+    },[router]);
+
+  return (
     <>
       {/* Dashboard content */}
-      
-     <div style={{display:'flex',gap:'2rem',flexWrap:'wrap',justifyContent:'center'}}>
-       {Array.from({ length : 15}, () => {
-        return <ConsultationCard/>
-      })}
-     </div>
+      <div style={{ display: 'flex', gap: '2rem', flexWrap: 'wrap', justifyContent: 'center' }}>
+        <ConsultationCard />
+        <ConsultationCard />
+        <ConsultationCard />
+        <ConsultationCard />
+      </div>
     </>
   );
 }
