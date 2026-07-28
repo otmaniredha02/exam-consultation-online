@@ -32,7 +32,7 @@ import Link from "next/link";
 import { pb } from "@/lib/database/pocketdb";
 import "./ProfessorDashboard.css";
 import { DialogTrigger } from "@/components/ui/dialog";
-import { NewConsultationDialog } from "../components/newConsultation/newConsultation";
+import { NewConsultationDialog } from "@/app/components/ConsultationCard/newConsultation";
 
 
 export default function ProfessorHeader() {
