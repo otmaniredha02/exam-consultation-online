@@ -1,6 +1,7 @@
 "use client";
 
 import { consultationAtom } from "@/app/context/consultation";
+import { Consultation } from "@/app/types/types";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useAtom } from "jotai";
@@ -23,36 +24,6 @@ interface Exercice {
 export default function Grading() {
     const [consultation,setConsultation] = useAtom(consultationAtom);
     const [exo, setExo] = useState<Exercice[]>([
-        {
-        index: 0,
-        name: "Exercice 1",
-        questions: [
-            {
-            parent_exercice_index: 0,
-            question_index: 0,
-            statement: "Question 1",
-            points: 2,
-            },
-        ],
-        },
-        {
-        index: 1,
-        name: "Exercice 2",
-        questions: [
-            {
-            parent_exercice_index: 1,
-            question_index: 0,
-            statement: "Question 1",
-            points: 2,
-            },
-            {
-            parent_exercice_index: 1,
-            question_index: 1,
-            statement: "Question 2",
-            points: 3,
-            },
-        ],
-        },
     ]);
 
     const [editing, setEditing] = useState<{
@@ -64,7 +35,7 @@ export default function Grading() {
     // useEffect to update gradings in consulation form
     // ==============================================
     useEffect(()=>{
-        setConsultation((consultation) => {
+        setConsultation((consultation:Consultation) => {
             let temp = consultation;
             temp.gradings = exo
             return temp;

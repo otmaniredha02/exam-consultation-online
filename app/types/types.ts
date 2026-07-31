@@ -13,6 +13,7 @@ export interface Exercice {
 }
 
 export interface Consultation {
+  id : string;
   course: string | undefined;
   date: Date;
   duration: number;
@@ -22,3 +23,8 @@ export interface Consultation {
   gradings: Exercice[];
   professor_id : string | undefined;
 }
+
+export type ConsultationCardProps = {
+  consultationItem: Consultation;
+  action : string
+};

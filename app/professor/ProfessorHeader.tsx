@@ -33,6 +33,7 @@ import { pb } from "@/lib/database/pocketdb";
 import "./ProfessorDashboard.css";
 import { DialogTrigger } from "@/components/ui/dialog";
 import { NewConsultationDialog } from "@/app/components/ConsultationCard/newConsultation";
+import { Consultation } from "../types/types";
 
 
 export default function ProfessorHeader() {
@@ -44,6 +45,17 @@ export default function ProfessorHeader() {
 
   const [profileOpen, setProfileOpen] = useState(false);
   const [logoutDialogOpen, setLogoutDialogOpen] = useState(false);
+  const Consultation : Consultation  = {
+    course : "",
+    date : new Date(),
+    duration : 0,
+    exam_correction_file : null,
+    gradings : [],
+    id : "",
+    level : "",
+    professor_id : "",
+    speciality : ""
+  }; 
 
   function handleProfileOpenChange(open: boolean) {
     setProfileOpen(open);
@@ -121,7 +133,7 @@ export default function ProfessorHeader() {
             <p>add new consultation</p>
           </div>
         </DialogTrigger>
-          <NewConsultationDialog/>
+          <NewConsultationDialog consultationItem={Consultation} action="CREATE"/>
        </Dialog>
        
       </header>

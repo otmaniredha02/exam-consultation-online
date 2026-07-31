@@ -30,9 +30,18 @@ import { useAtom } from "jotai";
 import { consultationAtom } from "@/app/context/consultation";
 
 import { pb } from "@/lib/database/pocketdb";
+import { ConsultationCardProps } from "@/app/types/types";
+import { useState } from "react";
 
-export function NewConsultationDialog() {
+export function NewConsultationDialog({
+  consultationItem,
+  action
+}: ConsultationCardProps) {
   const [consultation, setConsultation] = useAtom(consultationAtom);
+
+  // Radix/shadcn Select doesn't register itself in native FormData,
+  // so its value has to be tracked separately from the rest of the form.
+  const [level, setLevel] = useState<string>(consultationItem?.level ?? "");
 
   const handleConsultationSubmit = async (
     e: React.FormEvent<HTMLFormElement>
@@ -41,48 +50,42 @@ export function NewConsultationDialog() {
 
     const form = new FormData(e.currentTarget);
 
-    setConsultation((prev) => ({
-      ...prev,
-      course: form.get("course")?.toString() ?? "",
-      date: new Date(form.get("date")?.toString() ?? ""),
-      duration: Number(form.get("duration") ?? 0),
-      level : form.get("level")?.toString() ?? "",
-      speciality: form.get("speciality")?.toString() ?? "",
-      professor_id: pb.authStore.record?.id,
-      exam_correction_file:
-        (form.get("exam_correction_file") as File) ?? null,
-    }));
-
-    console.log({
+    const newConsultation = {
       ...consultation,
       course: form.get("course")?.toString() ?? "",
       date: new Date(form.get("date")?.toString() ?? ""),
       duration: Number(form.get("duration") ?? 0),
+      level,
       speciality: form.get("speciality")?.toString() ?? "",
+      professor_id: pb.authStore.record?.id,
       exam_correction_file:
         (form.get("exam_correction_file") as File) ?? null,
-      professor_id : pb.authStore.record?.id
-    });
-    console.log(consultation)
-    pb.collection("consultation").create(consultation).then((r)=>{
-        console.log(r)
-    }).catch((e)=>{
-        console.log(e)
-    });
-    console.log(consultation);
-    document.body.click()
+    };
+
+    setConsultation(newConsultation);
+
+    try {
+      if(action == "CREATE") {
+        const record = await pb
+        .collection("consultation")
+        .create(newConsultation);
+      } else if(action == "UPDATE") {
+        const record = await pb
+        .collection("consultation")
+        .update(consultationItem.id,newConsultation);
+      }
+    } catch (err) {
+      console.error(err);
+    }
+
+    document.body.click();
   };
 
   return (
     <DialogContent>
-      <DialogTitle style={{ fontSize: "1.5rem" }}>
-        Consultation
-      </DialogTitle>
+      <DialogTitle style={{ fontSize: "1.5rem" }}>Consultation</DialogTitle>
 
-      <form
-        className="consultation"
-        onSubmit={handleConsultationSubmit}
-      >
+      <form className="consultation" onSubmit={handleConsultationSubmit}>
         <div className="consultation-fields">
           {/* Course */}
 
@@ -95,6 +98,7 @@ export function NewConsultationDialog() {
             id="course"
             name="course"
             placeholder="Algorithms and Data Structures"
+            defaultValue={consultationItem?.course}
           />
 
           {/* Date */}
@@ -108,21 +112,25 @@ export function NewConsultationDialog() {
             id="date"
             name="date"
             type="datetime-local"
+            defaultValue={
+              consultationItem?.date
+                ? new Date(consultationItem.date).toISOString().slice(0, 16)
+                : undefined
+            }
           />
 
           {/* Duration */}
 
           <div className="formlabel">
             <Timer />
-            <Label htmlFor="duration">
-              Duration (minutes)
-            </Label>
+            <Label htmlFor="duration">Duration (minutes)</Label>
           </div>
 
           <Input
             id="duration"
             name="duration"
             type="number"
+            defaultValue={consultationItem?.duration}
           />
 
           {/* Level */}
@@ -132,39 +140,18 @@ export function NewConsultationDialog() {
             <Label>Level</Label>
           </div>
 
-          <Select
-            onValueChange={(value) =>
-              setConsultation((prev) => ({
-                ...prev,
-                level: value as string,
-              }))
-            }
-          >
+          <Select value={level} onValueChange={(value) => setLevel(value ?? "")}>
             <SelectTrigger style={{ width: "100%" }}>
               <SelectValue placeholder="Select level" />
             </SelectTrigger>
 
             <SelectContent>
               <SelectGroup>
-                <SelectItem value="License 1">
-                  License 1
-                </SelectItem>
-
-                <SelectItem value="License 2">
-                  License 2
-                </SelectItem>
-
-                <SelectItem value="License 3">
-                  License 3
-                </SelectItem>
-
-                <SelectItem value="Master 1">
-                  Master 1
-                </SelectItem>
-
-                <SelectItem value="Master 2">
-                  Master 2
-                </SelectItem>
+                <SelectItem value="License 1">License 1</SelectItem>
+                <SelectItem value="License 2">License 2</SelectItem>
+                <SelectItem value="License 3">License 3</SelectItem>
+                <SelectItem value="Master 1">Master 1</SelectItem>
+                <SelectItem value="Master 2">Master 2</SelectItem>
               </SelectGroup>
             </SelectContent>
           </Select>
@@ -173,30 +160,23 @@ export function NewConsultationDialog() {
 
           <div className="formlabel">
             <Layers3 size={16} />
-            <Label htmlFor="speciality">
-              Speciality
-            </Label>
+            <Label htmlFor="speciality">Speciality</Label>
           </div>
 
           <Input
             id="speciality"
             name="speciality"
+            defaultValue={consultationItem?.speciality}
           />
 
           {/* Correction file */}
 
           <div className="formlabel">
             <FileSpreadsheet />
-            <Label htmlFor="exam_correction_file">
-              Exam correction
-            </Label>
+            <Label htmlFor="exam_correction_file">Exam correction</Label>
           </div>
 
-          <Input
-            id="exam_correction_file"
-            name="exam_correction_file"
-            type="file"
-          />
+          <Input id="exam_correction_file" name="exam_correction_file" type="file" />
 
           {/* Grading */}
 
@@ -208,10 +188,7 @@ export function NewConsultationDialog() {
           <Grading />
         </div>
 
-        <Button
-          type="submit"
-          className="consultation-submit"
-        >
+        <Button type="submit" className="consultation-submit">
           Submit
         </Button>
       </form>
