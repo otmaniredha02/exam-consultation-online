@@ -37,9 +37,7 @@ import { Consultation } from "../types/types";
 
 
 export default function ProfessorHeader() {
-  const username = 
-  pb.authStore.record?.username.split("_").join(" ") != undefined ?
-  pb.authStore.record?.username.split("_").join(" ")  :  "user not found!";
+  const username =  pb.authStore.record?.username.split("_").join(" ")  ??  "user not found!";
 
   const router = useRouter();
 

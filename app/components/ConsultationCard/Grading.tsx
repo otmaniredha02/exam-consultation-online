@@ -21,10 +21,14 @@ interface Exercice {
   questions: Question[];
 }
 
-export default function Grading() {
+interface ExerciceType {
+    gradings : Exercice[]
+}
+
+export default function Grading({gradings} : ExerciceType) {
+    console.log(gradings)
     const [consultation,setConsultation] = useAtom(consultationAtom);
-    const [exo, setExo] = useState<Exercice[]>([
-    ]);
+    const [exo, setExo] = useState<Exercice[]>(gradings);
 
     const [editing, setEditing] = useState<{
         exerciseIndex: number;

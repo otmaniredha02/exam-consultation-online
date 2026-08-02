@@ -30,7 +30,7 @@ import { useAtom } from "jotai";
 import { consultationAtom } from "@/app/context/consultation";
 
 import { pb } from "@/lib/database/pocketdb";
-import { ConsultationCardProps } from "@/app/types/types";
+import { Consultation, ConsultationCardProps, Exercice } from "@/app/types/types";
 import { useState } from "react";
 
 export function NewConsultationDialog({
@@ -49,21 +49,23 @@ export function NewConsultationDialog({
     e.preventDefault();
 
     const form = new FormData(e.currentTarget);
-
-    const newConsultation = {
-      ...consultation,
-      course: form.get("course")?.toString() ?? "",
-      date: new Date(form.get("date")?.toString() ?? ""),
-      duration: Number(form.get("duration") ?? 0),
-      level,
-      speciality: form.get("speciality")?.toString() ?? "",
-      professor_id: pb.authStore.record?.id,
-      exam_correction_file:
-        (form.get("exam_correction_file") as File) ?? null,
+    console.log(form)
+    const file = form.get("exam_correction_file") as File;
+    const newConsultation: Consultation = {
+      course: form.get("course")?.toString() ?? consultation.course,
+      date: new Date(form.get("date")?.toString() ?? consultation.date.toDateString()),
+      duration: Number(form.get("duration") ?? consultation.duration),
+      level  : form.get("level")?.toString() ?? consultation.level,
+      speciality: form.get("speciality")?.toString() ?? consultation.speciality,
+      gradings : consultation.gradings,
+      professor_id: pb.authStore.record?.id ?? consultation.professor_id,
     };
 
-    setConsultation(newConsultation);
+    if (file && file.size > 0) {
+      newConsultation.exam_correction_file = file;
+    }
 
+    setConsultation(newConsultation);
     try {
       if(action == "CREATE") {
         const record = await pb
@@ -72,7 +74,13 @@ export function NewConsultationDialog({
       } else if(action == "UPDATE") {
         const record = await pb
         .collection("consultation")
-        .update(consultationItem.id,newConsultation);
+        .update(consultationItem.id,newConsultation)
+        .then((r)=>{
+          //
+        })
+        .catch((e)=>{
+          console.log(e)
+        });
       }
     } catch (err) {
       console.error(err);
@@ -140,7 +148,7 @@ export function NewConsultationDialog({
             <Label>Level</Label>
           </div>
 
-          <Select value={level} onValueChange={(value) => setLevel(value ?? "")}>
+          <Select name="level" value={level} onValueChange={(value) => setLevel(value ?? "")}>
             <SelectTrigger style={{ width: "100%" }}>
               <SelectValue placeholder="Select level" />
             </SelectTrigger>
@@ -175,8 +183,7 @@ export function NewConsultationDialog({
             <FileSpreadsheet />
             <Label htmlFor="exam_correction_file">Exam correction</Label>
           </div>
-
-          <Input id="exam_correction_file" name="exam_correction_file" type="file" />
+          <Input value={consultationItem?.exam_correction_file?.name} id="exam_correction_file" name="exam_correction_file" type="file" />
 
           {/* Grading */}
 
@@ -185,7 +192,7 @@ export function NewConsultationDialog({
             <Label>Grading</Label>
           </div>
 
-          <Grading />
+          <Grading gradings={consultationItem?.gradings}/>
         </div>
 
         <Button type="submit" className="consultation-submit">

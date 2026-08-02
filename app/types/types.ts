@@ -13,13 +13,13 @@ export interface Exercice {
 }
 
 export interface Consultation {
-  id : string;
+  id?: string;
   course: string | undefined;
   date: Date;
   duration: number;
   level: string;
   speciality: string;
-  exam_correction_file: File | null;
+  exam_correction_file? : File | null;
   gradings: Exercice[];
   professor_id : string | undefined;
 }

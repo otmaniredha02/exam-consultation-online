@@ -26,10 +26,6 @@ export default function StudentDashboard() {
     <>
       {/* Dashboard content */}
       <div style={{ display: 'flex', gap: '2rem', flexWrap: 'wrap', justifyContent: 'center' }}>
-        <ConsultationCard />
-        <ConsultationCard />
-        <ConsultationCard />
-        <ConsultationCard />
       </div>
     </>
   );

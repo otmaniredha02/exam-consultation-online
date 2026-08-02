@@ -23,9 +23,10 @@ export default function Professor() {
     },[router]);
 
     useEffect(()=>{
-        pb.collection("consultation").getFullList({})
+        pb.collection("consultation").getFullList({
+            filter: `professor_id = "${pb.authStore.record?.id}"`
+        })
         .then((consulations) => {
-            console.log(consulations)
             setConsultations((prev) => {
                 let temp : Consultation[] = [];
                 consulations.map((consultation) => {
@@ -44,16 +45,17 @@ export default function Professor() {
 
                 return temp;
             })
+            console.log("consul")
             console.log(consulations)
         }).catch((e) => {
             console.log(e);
         });
-    },[consulations]);
+    },[]);
 
     return (
         <div style={{display:'flex',justifyContent:'center',gap:'1rem',flexWrap:'wrap'}}>
         {consulations?.map((e)=>{
-            return <ConsultationCard consultationItem={e} action="UPDATE"/>
+            return <ConsultationCard key={e.id} consultationItem={e} action="UPDATE"/>
         })}
         </div>
     );
