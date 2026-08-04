@@ -178,7 +178,7 @@ export default function Grading({gradings} : ExerciceType) {
             }}
         />
 
-        {exo.map((exercise) => (
+        {exo?.map((exercise) => (
             <div
             key={exercise.index}
             className="border rounded-lg p-4 space-y-4"

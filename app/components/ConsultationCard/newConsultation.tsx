@@ -59,6 +59,7 @@ export function NewConsultationDialog({
       speciality: form.get("speciality")?.toString() ?? consultation.speciality,
       gradings : consultation.gradings,
       professor_id: pb.authStore.record?.id ?? consultation.professor_id,
+      isPublic: true
     };
 
     if (file && file.size > 0) {
