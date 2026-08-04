@@ -22,6 +22,7 @@ export interface Consultation {
   exam_correction_file? : File | null;
   gradings: Exercice[];
   professor_id : string | undefined;
+  isPublic : boolean
 }
 
 export type ConsultationCardProps = {

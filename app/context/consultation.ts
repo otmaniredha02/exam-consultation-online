@@ -1,3 +1,4 @@
+import { mergeProps } from '@base-ui/react/merge-props';
 import { atom } from "jotai";
 import { Consultation } from "../types/types";
 
@@ -10,6 +11,6 @@ export const consultationAtom = atom<Consultation>({
   speciality: "",
   exam_correction_file: null,
   gradings: [],
-  professor_id: ""
-
+  professor_id: "",
+  isPublic : true
 });
