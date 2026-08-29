@@ -1,19 +1,19 @@
 .consultation {
-    display: flex;
-    flex-direction: column;
-    height: 77vh;
-    gap: 1rem;
-    z-index: 100;
+	display: flex;
+	flex-direction: column;
+	height: 77vh;
+	gap: 1rem;
+	z-index: 100;
 }
 
 .consultation-fields {
-    display: flex;
-    flex-direction: column;
-    gap: .55rem;
-    overflow-y: scroll;
+	display: flex;
+	flex-direction: column;
+	gap: 0.55rem;
+	overflow-y: scroll;
 }
 
 .formlabel {
-    display: flex;
-    gap: 1rem;
+	display: flex;
+	gap: 1rem;
 }

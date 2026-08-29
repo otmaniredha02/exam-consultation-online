@@ -2,18 +2,15 @@ import ProfessorHeader from "./ProfessorHeader";
 import "./ProfessorDashboard.css";
 
 export default function StudentLayout({
-  children,
+	children,
 }: {
-  children: React.ReactNode;
+	children: React.ReactNode;
 }) {
+	return (
+		<div className="dashboard">
+			<ProfessorHeader />
 
-  return (
-    <div className="dashboard">
-      <ProfessorHeader />
-
-      <main className="dashboard-content">
-        {children}
-      </main>
-    </div>
-  );
+			<main className="dashboard-content">{children}</main>
+		</div>
+	);
 }
