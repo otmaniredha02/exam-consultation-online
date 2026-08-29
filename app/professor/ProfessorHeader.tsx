@@ -52,7 +52,8 @@ export default function ProfessorHeader() {
     id : "",
     level : "",
     professor_id : "",
-    speciality : ""
+    speciality : "",
+    isPublic: true
   }; 
 
   function handleProfileOpenChange(open: boolean) {

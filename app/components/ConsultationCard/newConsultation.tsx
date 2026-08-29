@@ -73,9 +73,13 @@ export function NewConsultationDialog({
         .collection("consultation")
         .create(newConsultation);
       } else if(action == "UPDATE") {
+        const id = consultationItem.id ?? "";
+        if(id == "") {
+          throw new Error("id can't be empty.");
+        }
         const record = await pb
         .collection("consultation")
-        .update(consultationItem.id,newConsultation)
+        .update(id,newConsultation)
         .then((r)=>{
           //
         })
