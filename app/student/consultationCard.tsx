@@ -9,23 +9,58 @@ import {
   GraduationCap,
   Layers3,
   Timer,
+  Trash,
 } from "lucide-react";
 import { Card } from "@/components/ui/card";
-import { Consultation, ConsultationCardProps } from "../types/types";
-import { Dialog, DialogTrigger } from "@/components/ui/dialog";
+import { ConsultationCardProps } from "../types/types";
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { NewConsultationDialog } from "../components/ConsultationCard/newConsultation";
-
+import { pb } from "@/lib/database/pocketdb";
 
 export function ConsultationCard({consultationItem }: ConsultationCardProps) {
+  const EMAIL_REGEX = /^[a-zA-Z0-9._%+-]+@univ-saida\.dz$/;
+
+  const deleteConsultation = () => {
+    const id = consultationItem.id
+    if(id != undefined) {
+      // remove by id
+      pb.collection("consultation").delete(consultationItem.id)
+    }
+  }
   return (
     <Card className="consultation-card">
-       <Dialog>
-        <DialogTrigger>
-            <Edit className="hover:bg-blue-400" 
-      style={{transform:'translate(1020%,-1rem)',position:'absolute' }}/>
-        </DialogTrigger>
-          <NewConsultationDialog consultationItem={consultationItem} action="UPDATE" />
-       </Dialog>
+      <div>
+            <Dialog>
+            { EMAIL_REGEX.test(pb.authStore.record?.email) ?
+            <DialogTrigger>
+            
+                <Edit className="hover:bg-blue-400" style={{transform:'translate(1020%,-1rem)',position:'absolute' }}/>
+            </DialogTrigger>:
+            <></>
+            }
+              <NewConsultationDialog consultationItem={consultationItem} action="UPDATE" />
+          </Dialog>
+
+          {/* delete button */}    
+          
+          <Dialog>
+            { EMAIL_REGEX.test(pb.authStore.record?.email) ?
+            <DialogTrigger>
+            <Trash color="red"></Trash>
+            </DialogTrigger>:
+            <></>
+            }
+            <DialogContent>
+              Are you sure want to delete ?
+
+              <Button variant="destructive"
+              onClick={deleteConsultation}
+              >
+                delete
+              </Button>
+            </DialogContent>
+          </Dialog>
+      </div>
       <h1>
         <BookOpen size={20} />
         {consultationItem.course}
