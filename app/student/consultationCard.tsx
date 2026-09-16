@@ -24,7 +24,9 @@ export function ConsultationCard({ consultationItem }: ConsultationCardProps) {
 		const id = consultationItem.id;
 		if (id != undefined) {
 			// remove by id
-			pb.collection("consultation").delete(consultationItem.id);
+			if (id !== undefined) {
+				pb.collection("consultation").delete(consultationItem.id);
+			}
 		}
 	};
 	return (

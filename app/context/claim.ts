@@ -1,0 +1,423 @@
+import { atom } from "jotai";
+
+export const claims = atom([
+	{
+		id: "student-001",
+		full_name: "Ahmed Benali",
+		profile: "https://i.pravatar.cc/150?img=11",
+		grade: "12/20",
+		messages: [
+			{
+				exercice: "Exercise 1",
+				question: "Question 2",
+				points: 3,
+				note: "I believe my answer was correct.",
+			},
+			{
+				exercice: "Exercise 2",
+				question: "Question 1",
+				points: 2,
+				note: "The correction seems to have missed this part.",
+			},
+			{
+				exercice: "Exercise 3",
+				question: "Question 4",
+				points: 1,
+				note: "I think this step should receive partial credit.",
+			},
+			{
+				exercice: "Exercise 4",
+				question: "Question 2",
+				points: 2,
+				note: "My calculation matches the expected result.",
+			},
+			{
+				exercice: "Exercise 5",
+				question: "Question 3",
+				points: 2,
+				note: "Could you please review this answer?",
+			},
+		],
+	},
+	{
+		id: "student-002",
+		full_name: "Sara Mansouri",
+		profile: "https://i.pravatar.cc/150?img=12",
+		grade: "4/20",
+		messages: [
+			{
+				exercice: "Exercise 1",
+				question: "Question 1",
+				points: 1,
+				note: "I think this answer deserves the full point.",
+			},
+			{
+				exercice: "Exercise 2",
+				question: "Question 3",
+				points: 3,
+				note: "My reasoning was correct even though the final answer was incomplete.",
+			},
+			{
+				exercice: "Exercise 3",
+				question: "Question 2",
+				points: 2,
+				note: "Please reconsider the points deducted here.",
+			},
+			{
+				exercice: "Exercise 4",
+				question: "Question 1",
+				points: 1,
+				note: "This step is present in my answer sheet.",
+			},
+			{
+				exercice: "Exercise 5",
+				question: "Question 4",
+				points: 2,
+				note: "I believe partial credit should be awarded.",
+			},
+		],
+	},
+	{
+		id: "student-003",
+		full_name: "Yacine Haddad",
+		profile: "https://i.pravatar.cc/150?img=13",
+		grade: "10/20",
+		messages: [
+			{
+				exercice: "Exercise 1",
+				question: "Question 3",
+				points: 2,
+				note: "The answer appears to match the expected solution.",
+			},
+			{
+				exercice: "Exercise 2",
+				question: "Question 2",
+				points: 1,
+				note: "I would like this answer to be reviewed.",
+			},
+			{
+				exercice: "Exercise 3",
+				question: "Question 1",
+				points: 3,
+				note: "My approach was different but mathematically valid.",
+			},
+			{
+				exercice: "Exercise 4",
+				question: "Question 3",
+				points: 2,
+				note: "I think one point was incorrectly deducted.",
+			},
+			{
+				exercice: "Exercise 5",
+				question: "Question 2",
+				points: 1,
+				note: "Could you check this calculation again?",
+			},
+		],
+	},
+	{
+		id: "student-004",
+		full_name: "Lina Boudiaf",
+		profile: "https://i.pravatar.cc/150?img=14",
+		grade: "17/20",
+		messages: [
+			{
+				exercice: "Exercise 1",
+				question: "Question 4",
+				points: 2,
+				note: "My answer contains the required explanation.",
+			},
+			{
+				exercice: "Exercise 2",
+				question: "Question 1",
+				points: 1,
+				note: "I believe this part was overlooked.",
+			},
+			{
+				exercice: "Exercise 3",
+				question: "Question 3",
+				points: 2,
+				note: "The result is correct according to my calculations.",
+			},
+			{
+				exercice: "Exercise 4",
+				question: "Question 4",
+				points: 1,
+				note: "Please review the correction for this question.",
+			},
+			{
+				exercice: "Exercise 5",
+				question: "Question 1",
+				points: 2,
+				note: "I think I should receive partial credit.",
+			},
+		],
+	},
+	{
+		id: "student-005",
+		full_name: "Omar Touati",
+		profile: "https://i.pravatar.cc/150?img=15",
+		grade: "11/20",
+		messages: [
+			{
+				exercice: "Exercise 1",
+				question: "Question 2",
+				points: 2,
+				note: "My method follows the same principle as the solution.",
+			},
+			{
+				exercice: "Exercise 2",
+				question: "Question 4",
+				points: 2,
+				note: "I believe two points were deducted incorrectly.",
+			},
+			{
+				exercice: "Exercise 3",
+				question: "Question 2",
+				points: 1,
+				note: "This answer should receive partial credit.",
+			},
+			{
+				exercice: "Exercise 4",
+				question: "Question 1",
+				points: 3,
+				note: "The calculation is correct on my exam sheet.",
+			},
+			{
+				exercice: "Exercise 5",
+				question: "Question 4",
+				points: 1,
+				note: "Could you please verify this question?",
+			},
+		],
+	},
+	{
+		id: "student-006",
+		full_name: "Meriem Saidi",
+		profile: "https://i.pravatar.cc/150?img=16",
+		grade: "14/20",
+		messages: [
+			{
+				exercice: "Exercise 1",
+				question: "Question 1",
+				points: 2,
+				note: "I believe my answer was correctly justified.",
+			},
+			{
+				exercice: "Exercise 2",
+				question: "Question 2",
+				points: 1,
+				note: "The correction does not seem to consider this step.",
+			},
+			{
+				exercice: "Exercise 3",
+				question: "Question 4",
+				points: 2,
+				note: "Please review the points given for this answer.",
+			},
+			{
+				exercice: "Exercise 4",
+				question: "Question 3",
+				points: 1,
+				note: "I think this should receive partial credit.",
+			},
+			{
+				exercice: "Exercise 5",
+				question: "Question 2",
+				points: 2,
+				note: "My result matches the expected result.",
+			},
+		],
+	},
+	{
+		id: "student-007",
+		full_name: "Rayan Khelifi",
+		profile: "https://i.pravatar.cc/150?img=17",
+		grade: "13/20",
+		messages: [
+			{
+				exercice: "Exercise 1",
+				question: "Question 3",
+				points: 1,
+				note: "I think one point was missed here.",
+			},
+			{
+				exercice: "Exercise 2",
+				question: "Question 1",
+				points: 2,
+				note: "My reasoning is valid even though I used another method.",
+			},
+			{
+				exercice: "Exercise 3",
+				question: "Question 3",
+				points: 2,
+				note: "Please reconsider the deduction.",
+			},
+			{
+				exercice: "Exercise 4",
+				question: "Question 2",
+				points: 1,
+				note: "This calculation is correct.",
+			},
+			{
+				exercice: "Exercise 5",
+				question: "Question 4",
+				points: 2,
+				note: "I believe this answer deserves more points.",
+			},
+		],
+	},
+	{
+		id: "student-008",
+		full_name: "Nour El Houda",
+		profile: "https://i.pravatar.cc/150?img=18",
+		grade: "16/20",
+		messages: [
+			{
+				exercice: "Exercise 1",
+				question: "Question 2",
+				points: 2,
+				note: "My answer includes the required reasoning.",
+			},
+			{
+				exercice: "Exercise 2",
+				question: "Question 3",
+				points: 1,
+				note: "This part seems to have been overlooked.",
+			},
+			{
+				exercice: "Exercise 3",
+				question: "Question 1",
+				points: 2,
+				note: "I believe the deduction was not justified.",
+			},
+			{
+				exercice: "Exercise 4",
+				question: "Question 4",
+				points: 1,
+				note: "Could you please review this step?",
+			},
+			{
+				exercice: "Exercise 5",
+				question: "Question 3",
+				points: 2,
+				note: "My solution leads to the correct result.",
+			},
+		],
+	},
+	{
+		id: "student-009",
+		full_name: "Anis Cherif",
+		profile: "https://i.pravatar.cc/150?img=19",
+		grade: "9/20",
+		messages: [
+			{
+				exercice: "Exercise 1",
+				question: "Question 4",
+				points: 1,
+				note: "I think partial credit should be considered.",
+			},
+			{
+				exercice: "Exercise 2",
+				question: "Question 2",
+				points: 2,
+				note: "My approach is mathematically valid.",
+			},
+			{
+				exercice: "Exercise 3",
+				question: "Question 3",
+				points: 1,
+				note: "Please check this answer again.",
+			},
+			{
+				exercice: "Exercise 4",
+				question: "Question 1",
+				points: 2,
+				note: "The calculation on my sheet is correct.",
+			},
+			{
+				exercice: "Exercise 5",
+				question: "Question 2",
+				points: 1,
+				note: "I believe one point was deducted by mistake.",
+			},
+		],
+	},
+	{
+		id: "student-010",
+		full_name: "Imane Rahmani",
+		profile: "https://i.pravatar.cc/150?img=20",
+		grade: "18/20",
+		messages: [
+			{
+				exercice: "Exercise 1",
+				question: "Question 1",
+				points: 1,
+				note: "I believe this answer deserves full credit.",
+			},
+			{
+				exercice: "Exercise 2",
+				question: "Question 4",
+				points: 2,
+				note: "My explanation matches the expected reasoning.",
+			},
+			{
+				exercice: "Exercise 3",
+				question: "Question 2",
+				points: 1,
+				note: "Please review the points assigned here.",
+			},
+			{
+				exercice: "Exercise 4",
+				question: "Question 3",
+				points: 2,
+				note: "This step was correctly completed on my sheet.",
+			},
+			{
+				exercice: "Exercise 5",
+				question: "Question 4",
+				points: 1,
+				note: "I think this deserves partial credit.",
+			},
+		],
+	},
+]);
+
+export const selectedStudent = atom({
+	id: "student-001",
+	full_name: "Ahmed Benali",
+	profile: "https://i.pravatar.cc/150?img=11",
+	grade: "12/20",
+	messages: [
+		{
+			exercice: "Exercise 1",
+			question: "Question 2",
+			points: 3,
+			note: "I believe my answer was correct.",
+		},
+		{
+			exercice: "Exercise 2",
+			question: "Question 1",
+			points: 2,
+			note: "The correction seems to have missed this part.",
+		},
+		{
+			exercice: "Exercise 3",
+			question: "Question 4",
+			points: 1,
+			note: "I think this step should receive partial credit.",
+		},
+		{
+			exercice: "Exercise 4",
+			question: "Question 2",
+			points: 2,
+			note: "My calculation matches the expected result.",
+		},
+		{
+			exercice: "Exercise 5",
+			question: "Question 3",
+			points: 2,
+			note: "Could you please review this answer?",
+		},
+	],
+});

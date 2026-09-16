@@ -1,0 +1,264 @@
+.exerciceCard {
+	width: 100%;
+	background: #ffffff;
+	border: 1px solid #d7e0ea;
+	border-radius: 10px;
+	margin-bottom: 0.75rem;
+	overflow: hidden;
+	box-shadow: 0 1px 2px rgba(15, 76, 129, 0.06);
+	transition:
+		box-shadow 0.2s ease,
+		border-color 0.2s ease;
+}
+
+.exerciceCard:hover {
+	border-color: #b7c9db;
+	box-shadow: 0 2px 8px rgba(15, 76, 129, 0.1);
+}
+
+.exerciceCard[open] {
+	border-color: #0f4c81;
+}
+
+/* ==========================================================
+   Summary / header row
+========================================================== */
+
+.exerciceSummary {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 1rem;
+
+	padding: 1rem 1.25rem;
+
+	background: #f4f6f9;
+	cursor: pointer;
+	user-select: none;
+	list-style: none;
+
+	transition: background 0.2s ease;
+}
+
+.exerciceSummary::-webkit-details-marker {
+	display: none;
+}
+
+.exerciceSummary:hover {
+	background: #eaf1f8;
+}
+
+.exerciceName {
+	font-size: 1rem;
+	font-weight: 600;
+	color: #0f4c81;
+	text-transform: capitalize;
+}
+
+.exerciceMeta {
+	display: flex;
+	align-items: center;
+	gap: 0.75rem;
+	flex-shrink: 0;
+}
+
+.questionCount {
+	font-size: 0.8rem;
+	color: #5c7488;
+	white-space: nowrap;
+}
+
+.totalBadge {
+	font-size: 0.8rem;
+	font-weight: 600;
+	color: #ffffff;
+	background: #1a7f8e;
+	padding: 0.2rem 0.6rem;
+	border-radius: 999px;
+	white-space: nowrap;
+}
+
+.chevron {
+	color: #0f4c81;
+	transition: transform 0.25s ease;
+	flex-shrink: 0;
+}
+
+.exerciceCard[open] .chevron {
+	transform: rotate(180deg);
+}
+
+/* ==========================================================
+   Question list
+========================================================== */
+
+.questionList {
+	list-style: none;
+	margin: 0;
+	padding: 0.5rem 1.25rem 1rem;
+}
+
+.questionItem {
+	display: flex;
+	align-items: center;
+	gap: 0.85rem;
+
+	padding: 0.65rem 0;
+	border-bottom: 1px solid #eef2f6;
+}
+
+.questionItem:last-child {
+	border-bottom: none;
+}
+
+.questionIndex {
+	flex-shrink: 0;
+	width: 24px;
+	height: 24px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
+	font-size: 0.75rem;
+	font-weight: 600;
+	color: #0f4c81;
+	background: #eaf1f8;
+	border-radius: 50%;
+}
+
+.questionText {
+	flex: 1 1 auto;
+	margin: 0;
+	font-size: 0.9rem;
+	color: #24344a;
+}
+
+.pointsBadge {
+	flex-shrink: 0;
+	font-size: 0.78rem;
+	font-weight: 600;
+	color: #1a7f8e;
+	background: #e6f4f1;
+	padding: 0.15rem 0.55rem;
+	border-radius: 6px;
+	white-space: nowrap;
+}
+
+/* ==========================================================
+   Claim trigger button
+========================================================== */
+
+.claimTrigger {
+	display: flex;
+	align-items: center;
+	gap: 0.35rem;
+	flex-shrink: 0;
+
+	padding: 0.3rem 0.6rem;
+
+	font-size: 0.78rem;
+	font-weight: 500;
+	color: #0f4c81;
+
+	background: #eaf1f8;
+	border: 1px solid #d7e0ea;
+	border-radius: 6px;
+
+	cursor: pointer;
+	transition:
+		background 0.2s ease,
+		border-color 0.2s ease;
+}
+
+.claimTrigger:hover {
+	background: #dbe8f5;
+	border-color: #b7c9db;
+}
+
+/* ==========================================================
+   Claim dialog
+========================================================== */
+
+.claimDialog {
+	width: 100%;
+	max-width: 440px;
+	border-radius: 12px;
+	z-index: 102;
+}
+
+.claimDialogTitle {
+	color: #0f4c81;
+	font-size: 1.1rem;
+}
+
+.claimDialogSubtitle {
+	margin: 0.15rem 0 0;
+	font-size: 0.85rem;
+	color: #5c7488;
+	text-transform: capitalize;
+}
+
+.claimTextarea {
+	margin-top: 0.5rem;
+	resize: vertical;
+	min-height: 120px;
+	border-color: #d7e0ea;
+}
+
+.claimTextarea:focus-visible {
+	border-color: #0f4c81;
+	box-shadow: 0 0 0 2px rgba(15, 76, 129, 0.15);
+}
+
+.claimDialogFooter {
+	margin-top: 0.5rem;
+	gap: 0.5rem;
+}
+
+/* ==========================================================
+   Phone / tablet
+========================================================== */
+
+@media (max-width: 768px) {
+	.claimDialog {
+		max-width: 92vw;
+	}
+}
+
+@media (max-width: 480px) {
+	.claimTriggerLabel {
+		display: none;
+	}
+
+	.claimTrigger {
+		padding: 0.4rem;
+		border-radius: 50%;
+	}
+
+	.claimDialog {
+		max-width: 100vw;
+		width: 100vw;
+		height: 100dvh;
+		max-height: 100dvh;
+		margin: 0;
+		border-radius: 0;
+		display: flex;
+		flex-direction: column;
+		justify-content: flex-start;
+		padding: 1.25rem 1rem;
+	}
+
+	.claimTextarea {
+		flex: 1 1 auto;
+		min-height: 160px;
+	}
+
+	.claimDialogFooter {
+		flex-direction: column-reverse;
+		gap: 0.5rem;
+	}
+
+	.claimDialogFooter button {
+		width: 100%;
+	}
+}

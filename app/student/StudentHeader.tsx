@@ -1,6 +1,13 @@
 "use client";
 
-import { Bell, ChevronDown, CircleUserRound, LogOut, User } from "lucide-react";
+import {
+	Bell,
+	ChevronDown,
+	CircleUserRound,
+	List,
+	LogOut,
+	User,
+} from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -14,6 +21,7 @@ import {
 	DialogFooter,
 	DialogHeader,
 	DialogTitle,
+	DialogTrigger,
 } from "@/components/ui/dialog";
 import {
 	DropdownMenu,
@@ -22,6 +30,9 @@ import {
 	DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { pb } from "@/lib/database/pocketdb";
+import "./studentDashboard.css";
+import { StudentList } from "../professor/review/components/StudentList";
+import { ExerciceItem } from "./components/ExerciceItem";
 
 export default function StudentHeader() {
 	const username =
@@ -33,6 +44,7 @@ export default function StudentHeader() {
 
 	const [profileOpen, setProfileOpen] = useState(false);
 	const [notificationOpen, setNotificationOpen] = useState(false);
+	const [claimsOpen, setClaimsOpen] = useState(false);
 	const [logoutDialogOpen, setLogoutDialogOpen] = useState(false);
 
 	function handleProfileOpenChange(open: boolean) {
@@ -71,9 +83,7 @@ export default function StudentHeader() {
 	return (
 		<>
 			<header className="dashboard-header">
-				{/* ===========================
-            Profile
-        =========================== */}
+				{/* =========================== Profile =========================== */}
 
 				<DropdownMenu open={profileOpen} onOpenChange={handleProfileOpenChange}>
 					<DropdownMenuTrigger className="profile-button">
@@ -105,9 +115,36 @@ export default function StudentHeader() {
 					</DropdownMenuContent>
 				</DropdownMenu>
 
-				{/* ===========================
-            Notifications
-        =========================== */}
+				{/* =========================== claims =========================== */}
+
+				<Dialog open={claimsOpen} onOpenChange={setClaimsOpen}>
+					<DialogTrigger
+						render={
+							<button type="button" className="claims-button">
+								<List size={30} />
+								<h1>claims</h1>
+							</button>
+						}
+					/>
+
+					<DialogContent className="claims-dialog-content">
+						<DialogHeader>
+							<DialogTitle>Your claims</DialogTitle>
+							<DialogDescription>
+								Review your exercises below and send a claim if you think a
+								question was graded incorrectly.
+							</DialogDescription>
+						</DialogHeader>
+
+						<div className="claims-list">
+							<ExerciceItem />
+							<ExerciceItem />
+							<ExerciceItem />
+						</div>
+					</DialogContent>
+				</Dialog>
+
+				{/* =========================== Notifications =========================== */}
 
 				<DropdownMenu
 					open={notificationOpen}
@@ -117,7 +154,7 @@ export default function StudentHeader() {
 						render={<button type="button" className="notification-button" />}
 						className="notification-button"
 					>
-						<Bell size={22} />
+						<Bell />
 					</DropdownMenuTrigger>
 
 					<DropdownMenuContent

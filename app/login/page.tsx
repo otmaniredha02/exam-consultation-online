@@ -11,109 +11,82 @@ import { useRouter } from "next/navigation";
 import { Toaster, toast } from "@/components/ui/toast";
 import { pb } from "@/lib/database/pocketdb";
 
+const STUDENT_EMAIL_REGEX = /^[a-zA-Z0-9._%+-]+@stu\.univ-saida\.dz$/;
+const STAFF_EMAIL_REGEX = /^[a-zA-Z0-9._%+-]+@univ-saida\.dz$/;
+
 export default function Login() {
-	const [showpass, setShowpass] = useState(false);
+	const [showPassword, setShowPassword] = useState(false);
 	const router = useRouter();
 
 	const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
+
 		const formData = new FormData(e.currentTarget);
 		const email = formData.get("email") as string;
 		const password = formData.get("password") as string;
-		// A robust regex to match any username followed by @stu.univ-saida.dz
-		const regxstudentemail = /^[a-zA-Z0-9._%+-]+@stu\.univ-saida\.dz$/;
-		// A robust regex to match any username followed by @univ-saida.dz
-		const regxdentemail = /^[a-zA-Z0-9._%+-]+@univ-saida\.dz$/;
 
 		if (password.length < 8) {
-			toast.add({
-				description: "password is too short.",
-				type: "warning",
-			});
+			toast.add({ description: "Password is too short.", type: "warning" });
 			return;
 		}
 
-		if (regxstudentemail.test(email)) {
-			const result = await pb
-				.collection("students")
-				.authWithPassword(email, password)
-				.then((r) => {
-					// TODO : store details in server
-					console.log("logged in");
-					router.push("/student");
-				})
-				.catch((e) => {
-					// TODO : store detaild logs onerror in server
-					console.log(e);
-					toast.add({
-						description: e.message,
-						type: "warning",
-					});
-					return;
-				});
-		} else if (regxdentemail.test(email)) {
-			const result = await pb
-				.collection("professor")
-				.authWithPassword(email, password)
-				.then((r) => {
-					// TODO : store details in server
-					console.log("logged in");
-					router.push("/professor");
-				})
-				.catch((e) => {
-					// TODO : store detaild logs onerror in server
-					console.log(e);
-					toast.add({
-						description: e.message,
-						type: "warning",
-					});
-					return;
-				});
+		let collection: string;
+		let redirectPath: string;
+
+		if (STUDENT_EMAIL_REGEX.test(email)) {
+			collection = "students";
+			redirectPath = "/student";
+		} else if (STAFF_EMAIL_REGEX.test(email)) {
+			collection = "professor";
+			redirectPath = "/professor";
 		} else {
-			toast.add({
-				description: "Invalid Email.",
-				type: "warning",
-			});
+			toast.add({ description: "Invalid email.", type: "warning" });
 			return;
+		}
+
+		try {
+			// TODO: store auth details / logs on server
+			await pb.collection(collection).authWithPassword(email, password);
+			router.push(redirectPath);
+		} catch (error: any) {
+			toast.add({ description: error.message, type: "warning" });
 		}
 	};
 
 	return (
-		<>
-			<Card className="logincard">
-				<form onSubmit={handleLogin}>
-					<h1
-						style={{
-							fontSize: "2rem",
-							display: "flex",
-							justifyContent: "center",
-						}}
+		<Card className="logincard">
+			<form onSubmit={handleLogin}>
+				<img
+					className="logo"
+					width={100}
+					height={100}
+					src="exam_review.png"
+					alt="exam_review"
+				/>
+
+				<FieldLabel htmlFor="email">Email</FieldLabel>
+				<Input placeholder="email" name="email" type="email" />
+
+				<FieldLabel htmlFor="password">Password</FieldLabel>
+				<div className="logincardpassinput">
+					<Input
+						name="password"
+						placeholder="password"
+						type={showPassword ? "text" : "password"}
+					/>
+					<Button
+						type="button"
+						variant="ghost"
+						onClick={() => setShowPassword((prev) => !prev)}
 					>
-						Consultaz
-					</h1>
-					<FieldLabel htmlFor="email">Email</FieldLabel>
-					<Input placeholder="email" name="email" type="email" />
-					<br />
-					<br />
-					<FieldLabel htmlFor="password">Password</FieldLabel>
-					<div className="logincardpassinput" style={{ display: "flex" }}>
-						<Input
-							name="password"
-							style={{ outline: "none" }}
-							placeholder="password"
-							type={showpass ? "text" : "password"}
-						/>
-						<Button
-							style={{ margin: "0.2rem", width: "1rem", height: "1rem" }}
-							onClick={() => setShowpass((prev) => !prev)}
-						>
-							👁
-						</Button>
-					</div>
-					<Button type="submit">Login</Button>
-				</form>
-				<Toaster />
-			</Card>
-		</>
+						👁
+					</Button>
+				</div>
+
+				<Button type="submit">Login</Button>
+			</form>
+
+			<Toaster />
+		</Card>
 	);
 }

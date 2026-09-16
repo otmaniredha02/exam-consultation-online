@@ -6,9 +6,10 @@ import {
 	LogOut,
 	SquarePlus,
 	User,
+	UserIcon,
 } from "lucide-react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import {
@@ -29,14 +30,21 @@ import { pb } from "@/lib/database/pocketdb";
 import "./ProfessorDashboard.css";
 import { NewConsultationDialog } from "@/app/components/ConsultationCard/newConsultation";
 import { DialogTrigger } from "@/components/ui/dialog";
+import {
+	Drawer,
+	DrawerContent,
+	DrawerHeader,
+	DrawerTrigger,
+} from "@/components/ui/drawer";
 import type { Consultation } from "../types/types";
+import { StudentList } from "./review/components/StudentList";
 
 export default function ProfessorHeader() {
 	const username =
 		pb.authStore.record?.username.split("_").join(" ") ?? "user not found!";
 
 	const router = useRouter();
-
+	const pathname = usePathname();
 	const [profileOpen, setProfileOpen] = useState(false);
 	const [logoutDialogOpen, setLogoutDialogOpen] = useState(false);
 	const Consultation: Consultation = {
@@ -113,18 +121,51 @@ export default function ProfessorHeader() {
 				{/* ===========================
             schedule new consultation session
         =========================== */}
-				<Dialog>
-					<DialogTrigger>
-						<div className="consulation-button">
-							<SquarePlus />
-							<p>add new consultation</p>
-						</div>
-					</DialogTrigger>
-					<NewConsultationDialog
-						consultationItem={Consultation}
-						action="CREATE"
-					/>
-				</Dialog>
+				{pathname.includes("/review") ? (
+					<div style={{ display: "flex", gap: "1rem" }}>
+						<Dialog>
+							<DialogTrigger>
+								<Button
+									style={{ backgroundColor: "white" }}
+									variant={"destructive"}
+								>
+									end
+								</Button>
+							</DialogTrigger>
+							<DialogContent>
+								<DialogHeader>Are sure want to end session ?</DialogHeader>
+								<DialogFooter>
+									<Button variant={"destructive"}>end session</Button>
+								</DialogFooter>
+							</DialogContent>
+						</Dialog>
+						<Drawer>
+							<DrawerTrigger render={<Button variant="outline" />}>
+								<UserIcon />
+								<p>students</p>
+							</DrawerTrigger>
+							<DrawerContent>
+								<DrawerHeader></DrawerHeader>
+								<div className="p-4">
+									<StudentList />
+								</div>
+							</DrawerContent>
+						</Drawer>
+					</div>
+				) : (
+					<Dialog>
+						<DialogTrigger>
+							<div className="consulation-button">
+								<SquarePlus />
+								<p>consultation</p>
+							</div>
+						</DialogTrigger>
+						<NewConsultationDialog
+							consultationItem={Consultation}
+							action="CREATE"
+						/>
+					</Dialog>
+				)}
 			</header>
 
 			{/* ===========================

@@ -10,7 +10,7 @@ body {
 .dashboard {
 	width: 100%;
 	min-height: 100vh;
-	background: #f5f7fb;
+	background: #f4f6f9;
 }
 
 .dashboard-content {
@@ -30,7 +30,7 @@ body {
 
 	padding: 0 2rem;
 
-	background: #2563eb;
+	background: #0f4c81;
 
 	position: sticky;
 	top: 0;
@@ -62,7 +62,7 @@ body {
 }
 
 .profile-button:hover {
-	background: rgba(255, 255, 255, 0.12);
+	background: rgba(255, 255, 255, 0.14);
 }
 
 .profile-button span {
@@ -80,19 +80,29 @@ body {
 }
 
 /* ==========================================================
-   add Consulation Button
+   Add Consultation Button
 ========================================================== */
 
 .consulation-button {
 	display: flex;
-	gap: 1rem;
+	align-items: center;
+	gap: 0.5rem;
+
 	color: white;
-	padding: 0.6rem;
+	font-size: 0.95rem;
+	font-weight: 500;
+
+	padding: 0.5rem 0.9rem;
+	border: none;
+
+	background: #1a7f8e;
 	cursor: pointer;
+
+	transition: background 0.2s;
 }
 
 .consulation-button:hover {
-	background: rgba(255, 255, 255, 0.12);
+	background: #17707d;
 }
 
 /* ==========================================================
@@ -102,6 +112,7 @@ body {
 .profile-dropdown-content {
 	width: 220px;
 	padding: 0.35rem;
+	border: 1px solid #d7e0ea;
 }
 
 .profile-dropdown-content [data-slot="dropdown-menu-item"] {
@@ -109,8 +120,18 @@ body {
 	cursor: pointer;
 }
 
+.profile-dropdown-content [data-slot="dropdown-menu-item"]:hover {
+	background: #eaf1f8;
+	color: #0f4c81;
+}
+
 .logout-item {
 	color: #dc2626;
+}
+
+.logout-item:hover {
+	background: #fdecec !important;
+	color: #dc2626 !important;
 }
 
 /* ==========================================================
@@ -125,15 +146,29 @@ body {
 
 	overflow-y: auto;
 	overflow-x: hidden;
+
+	border: 1px solid #d7e0ea;
+
+	/* Firefox */
+	scrollbar-width: thin;
+	scrollbar-color: #1a7f8e transparent;
 }
 
 .notification-dropdown-content::-webkit-scrollbar {
 	width: 6px;
 }
 
+.notification-dropdown-content::-webkit-scrollbar-track {
+	background: transparent;
+}
+
 .notification-dropdown-content::-webkit-scrollbar-thumb {
-	background: #cbd5e1;
-	border-radius: 999px;
+	background: #1a7f8e;
+	transition: background-color 0.2s ease;
+}
+
+.notification-dropdown-content::-webkit-scrollbar-thumb:hover {
+	background: #0f4c81;
 }
 
 /* ==========================================================
@@ -150,6 +185,10 @@ body {
 	}
 
 	.profile-button span {
+		display: none;
+	}
+
+	.consulation-button span {
 		display: none;
 	}
 
@@ -189,6 +228,10 @@ body {
 	.notification-button {
 		width: 40px;
 		height: 40px;
+	}
+
+	.consulation-button {
+		padding: 0.5rem;
 	}
 
 	/* Base UI portals the dropdowns to the body,

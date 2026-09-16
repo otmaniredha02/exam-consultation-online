@@ -1,0 +1,68 @@
+.studentsSection h1 {
+	font-size: 1.4rem;
+	color: #0f4c81;
+	font-weight: 600;
+	margin: 0 0 0.75rem 0;
+}
+
+.scrollArea {
+	overflow-y: auto;
+	height: 100vh;
+
+	/* Firefox */
+	scrollbar-width: thin;
+	scrollbar-color: #1a7f8e transparent;
+}
+
+.scrollArea::-webkit-scrollbar {
+	width: 6px;
+}
+
+.scrollArea::-webkit-scrollbar-track {
+	background: transparent;
+	margin: 4px 0;
+}
+
+.scrollArea::-webkit-scrollbar-thumb {
+	background-color: #1a7f8e;
+	border-radius: 999px;
+	transition: background-color 0.2s ease;
+}
+
+.scrollArea::-webkit-scrollbar-thumb:hover {
+	background-color: #0f4c81;
+}
+
+.emptyState {
+	color: #8a97a6;
+	padding: 1rem;
+}
+
+/* ===== student list item styles ===== */
+
+.studentItem {
+	background-color: #eaf1f8;
+	border: 1px solid #c3d7e8;
+	padding: 1rem;
+	margin-bottom: 0.65rem;
+	margin-left: -0.65rem;
+	border-radius: 8px;
+	cursor: pointer;
+	transition:
+		background-color 0.2s ease,
+		box-shadow 0.2s ease;
+}
+
+.studentItem:hover {
+	background-color: #d7e6f4;
+	box-shadow: 0 2px 6px rgba(15, 76, 129, 0.12);
+}
+
+.studentItemTitle {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 0.5rem;
+	color: #1c2d3d;
+	font-weight: 500;
+}
