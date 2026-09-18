@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="/exam_review.png" alt="Exam Review Logo" width="200" height="200">
+  <img src="public/exam_review.png" alt="Exam Review Logo" width="200" height="200">
   <h1>Exam Review</h1>
   <p>
      A platform for students to review their exam sheets and submit grading claims,
