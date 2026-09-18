@@ -41,3 +41,10 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+
+# python related files
+# Python bytecode and cache directories
+*.pyc
+*.py[cod]
+__pycache__/
