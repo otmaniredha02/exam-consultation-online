@@ -2,8 +2,8 @@
 from django.http import JsonResponse
 
 EXEMPT_PATHS = {
-    '/first-login',
-    '/login',
+    '/api/first-login',
+    '/api/login',
 }
 
 class AuthRequiredMiddleware:

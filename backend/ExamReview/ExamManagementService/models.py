@@ -7,7 +7,7 @@ from django.db import models
 # (admin-managed — see "manage backend database used" feature)
 # ============================================================
 
-class Database(models.Model):
+class Databases(models.Model):
     """Connection details for an external/per-university database."""
     engine = models.CharField(max_length=100)
     name = models.CharField(max_length=255)
@@ -27,8 +27,8 @@ class Database(models.Model):
         return f"{self.name}@{self.host}:{self.port}"
 
 
-class Table(models.Model):
-    database = models.ForeignKey(Database, on_delete=models.CASCADE, related_name="tables")
+class Tables(models.Model):
+    database = models.CharField(max_length=255)
     table_name = models.CharField(max_length=255)
     schema = models.JSONField()
 

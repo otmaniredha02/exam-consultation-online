@@ -6,13 +6,13 @@ from django.db.models import QuerySet
 
 def fetch_backend_database():
     """Import model inside function body to avoid AppRegistryNotReady."""
-    from ExamManagementService.models import databases
-    return databases.objects.first()
+    from ExamManagementService.models import Databases
+    return Databases.objects.first()
 
 def fetch_database_tables(database_name: str) -> QuerySet:
     """Import model inside function body to avoid AppRegistryNotReady."""
     from ExamManagementService.models import Tables
-    return Tables.objects.filter(database_name=database_name)
+    return Tables.objects.filter(database=database_name)
 
 def addDatabaseBackendToSettings(university_backend: dict):
     settings.DATABASES['university_backend'] = university_backend

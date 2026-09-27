@@ -46,7 +46,6 @@ class ExammanagementserviceConfig(AppConfig):
         addDatabaseBackendToConnections(university_backend)
 
         app_label = self.name.split('.')[-1]
-
         for table in tables:
             model_class_name = table.table_name.title().replace('_', '')
 
@@ -90,7 +89,6 @@ class ExammanagementserviceConfig(AppConfig):
                 "app_label": app_label,
             }
             attrs['Meta'] = type("Meta", (object,), meta_attrs)
-
             model_cls = type(model_class_name, (models.Model,), attrs)
 
             setattr(app_models, model_class_name, model_cls)

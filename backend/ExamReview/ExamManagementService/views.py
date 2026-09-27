@@ -8,7 +8,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_http_methods
 
 from ExamReview.auth import AuthBackend
-from .models import ExamReview, ExamNotes, SessionParticipant, Claims, Notification, PlatformConfig, Database
+from .models import ExamReview, ExamNotes, SessionParticipant, Claims, Notification, PlatformConfig, Databases
 from .permissions import role_required
 from .realtime import broadcaster, sse_stream
 
@@ -23,13 +23,13 @@ def first_configuration_login(request: HttpRequest):
         body = request.body
         body_dict = json.loads(body)
     except json.JSONDecodeError:
-        raise BadRequest("bad request body")
+        raise JsonResponse({"message":"bad request body"},stats=400)
 
     username = body_dict.get("username")
     email = body_dict.get("email")
     password = body_dict.get("password")
     if username is None or email is None or password is None:
-        return BadRequest("email or password is invalid")
+        return JsonResponse({"message":"email or password is invalid"},status=400)
 
     User = get_user_model()
     user_created = User.objects.create_user(username, email, password)
@@ -173,7 +173,8 @@ def end_session(request: HttpRequest, session_id: int):
     except ExamReview.DoesNotExist:
         raise Http404("Session not found.")
 
-    if request.user.role == "professor" and session.professor_id != request.user.id:
+    is_professor_only = request.user.groups.filter(name="professor").exists() and not request.user.groups.filter(name="admin").exists()
+    if is_professor_only and session.professor_id != request.user.id:
         return JsonResponse({"msg": "You can only end your own sessions."}, status=403)
 
     session.status = "ended"

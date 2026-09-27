@@ -5,7 +5,9 @@ from django.http import JsonResponse
 def role_required(*roles):
     """
     Use after AuthRequiredMiddleware has already confirmed the user is
-    logged in. This checks WHICH role they're allowed to act as.
+    logged in. Checks group membership (AuthBackend assigns each user to
+    a Group matching their role — "student", "professor", or "admin" —
+    on every successful login).
 
     Usage:
         @role_required('professor', 'admin')
@@ -15,7 +17,7 @@ def role_required(*roles):
     def decorator(view_func):
         @wraps(view_func)
         def wrapper(request, *args, **kwargs):
-            if getattr(request.user, "role", None) not in roles:
+            if not request.user.groups.filter(name__in=roles).exists():
                 return JsonResponse(
                     {"msg": "Forbidden: insufficient permissions"}, status=403
                 )
